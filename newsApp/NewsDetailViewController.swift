@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  NewsDetailViewController.swift
 //  newsApp
 //
 //  Created by Alperen Kişi on 31/05/2021.
@@ -7,16 +7,12 @@
 
 import UIKit
 
-class FeedViewController: UIViewController {
+class NewsDetailViewController: UIViewController {
 
-    
-    //MARK: -UI Objects -
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "News"
+        
     }
-
+    
 
 }
-

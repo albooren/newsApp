@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  FavoritesViewController.swift
 //  newsApp
 //
 //  Created by Alperen Kişi on 31/05/2021.
@@ -7,16 +7,11 @@
 
 import UIKit
 
-class FeedViewController: UIViewController {
+class FavoritesViewController: UIViewController {
 
-    
-    //MARK: -UI Objects -
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "News"
+        title = "Favorites"
     }
 
-
 }
-

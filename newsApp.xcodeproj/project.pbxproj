@@ -13,6 +13,9 @@
 		C9E1E8032664DC0C00887857 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9E1E8022664DC0C00887857 /* Assets.xcassets */; };
 		C9E1E8112664DC0D00887857 /* newsAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E1E8102664DC0D00887857 /* newsAppTests.swift */; };
 		C9E1E81C2664DC0D00887857 /* newsAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E1E81B2664DC0D00887857 /* newsAppUITests.swift */; };
+		C9E1E8462664E6CC00887857 /* NewsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E1E8452664E6CC00887857 /* NewsDetailViewController.swift */; };
+		C9E1E84B2664E6FB00887857 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E1E84A2664E6FB00887857 /* TabBarViewController.swift */; };
+		C9E1E8532664E81600887857 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E1E8522664E81600887857 /* FavoritesViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +48,9 @@
 		C9E1E8172664DC0D00887857 /* newsAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = newsAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9E1E81B2664DC0D00887857 /* newsAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = newsAppUITests.swift; sourceTree = "<group>"; };
 		C9E1E81D2664DC0D00887857 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C9E1E8452664E6CC00887857 /* NewsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailViewController.swift; sourceTree = "<group>"; };
+		C9E1E84A2664E6FB00887857 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		C9E1E8522664E81600887857 /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,7 +103,10 @@
 			children = (
 				C9E1E7F92664DC0100887857 /* AppDelegate.swift */,
 				C9E1E7FB2664DC0100887857 /* SceneDelegate.swift */,
+				C9E1E84A2664E6FB00887857 /* TabBarViewController.swift */,
 				C9E1E7FD2664DC0100887857 /* FeedViewController.swift */,
+				C9E1E8452664E6CC00887857 /* NewsDetailViewController.swift */,
+				C9E1E8522664E81600887857 /* FavoritesViewController.swift */,
 				C9E1E8022664DC0C00887857 /* Assets.xcassets */,
 				C9E1E8072664DC0C00887857 /* Info.plist */,
 			);
@@ -250,8 +259,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9E1E8462664E6CC00887857 /* NewsDetailViewController.swift in Sources */,
 				C9E1E7FE2664DC0100887857 /* FeedViewController.swift in Sources */,
 				C9E1E7FA2664DC0100887857 /* AppDelegate.swift in Sources */,
+				C9E1E84B2664E6FB00887857 /* TabBarViewController.swift in Sources */,
+				C9E1E8532664E81600887857 /* FavoritesViewController.swift in Sources */,
 				C9E1E7FC2664DC0100887857 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
