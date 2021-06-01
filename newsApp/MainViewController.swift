@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TabBarViewController: UITabBarController {
+class MainViewController: UITabBarController {
 
     //MARK: - VC Setted -
     let feedVC = FeedViewController()
@@ -23,9 +23,11 @@ class TabBarViewController: UITabBarController {
         newsController.title = "News"
         tabBar.tintColor = .black
         newsController.tabBarItem.image = UIImage(systemName: "house")
+        newsController.tabBarItem.selectedImage = UIImage(systemName: "house.fill")
         let favoritesController = UINavigationController(rootViewController: favoritesVc)
         favoritesController.title = "Favorites"
         favoritesController.tabBarItem.image = UIImage(systemName: "heart")
+        favoritesController.tabBarItem.selectedImage = UIImage(systemName: "heart.fill")
         viewControllers = [newsController,favoritesController]
     }
 }
