@@ -14,20 +14,23 @@ class NewsTableViewCell: UITableViewCell {
 
     //MARK: - UI Objects -
     
-    lazy var newsLabel : UILabel = {
+     var newsLabel : UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .boldSystemFont(ofSize: 23)
+        label.font = .boldSystemFont(ofSize: 14)
+        label.text = "Loading"
         return label
     }()
     
-    lazy var newsShortDetailLabel : UILabel = {
+     var newsShortDetailLabel : UILabel = {
         let label = UILabel()
+        label.font = .systemFont(ofSize: 14)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "..."
         label.numberOfLines = 2
         return label
     }()
-    lazy var newsImageView : UIImageView = {
+     var newsImageView : UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "House")
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -60,8 +63,8 @@ class NewsTableViewCell: UITableViewCell {
             
             newsImageView.topAnchor.constraint(equalTo: topAnchor,constant: 20),
             newsImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            newsImageView.widthAnchor.constraint(equalToConstant: 60),
-            newsImageView.heightAnchor.constraint(equalToConstant: 60)
+            newsImageView.widthAnchor.constraint(equalToConstant: 80),
+            newsImageView.heightAnchor.constraint(equalToConstant: 45)
            
         ])
     }
