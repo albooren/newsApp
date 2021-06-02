@@ -15,6 +15,7 @@
 		C914A6DD26665F3A007E926F /* GenericComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C914A6DC26665F3A007E926F /* GenericComponent.swift */; };
 		C98CDCFE26664D5400C5322E /* NetworkParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98CDCFD26664D5400C5322E /* NetworkParameters.swift */; };
 		C98CDD032666503C00C5322E /* FeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98CDD022666503C00C5322E /* FeedModel.swift */; };
+		C9B296FC26683AA000E9FED7 /* WebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B296FB26683AA000E9FED7 /* WebViewViewController.swift */; };
 		C9E1E7FA2664DC0100887857 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E1E7F92664DC0100887857 /* AppDelegate.swift */; };
 		C9E1E7FC2664DC0100887857 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E1E7FB2664DC0100887857 /* SceneDelegate.swift */; };
 		C9E1E7FE2664DC0100887857 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E1E7FD2664DC0100887857 /* FeedViewController.swift */; };
@@ -57,6 +58,7 @@
 		C914A6DC26665F3A007E926F /* GenericComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericComponent.swift; sourceTree = "<group>"; };
 		C98CDCFD26664D5400C5322E /* NetworkParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkParameters.swift; sourceTree = "<group>"; };
 		C98CDD022666503C00C5322E /* FeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModel.swift; sourceTree = "<group>"; };
+		C9B296FB26683AA000E9FED7 /* WebViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewViewController.swift; sourceTree = "<group>"; };
 		C9E1E7F62664DC0100887857 /* newsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = newsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9E1E7F92664DC0100887857 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C9E1E7FB2664DC0100887857 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 				C98CDCFC26664CE300C5322E /* Favorites */,
 				C9E1E84A2664E6FB00887857 /* MainViewController.swift */,
 				C9E1E8452664E6CC00887857 /* NewsDetailViewController.swift */,
+				C9B296FB26683AA000E9FED7 /* WebViewViewController.swift */,
 				C9E1E7F92664DC0100887857 /* AppDelegate.swift */,
 				C9E1E7FB2664DC0100887857 /* SceneDelegate.swift */,
 				C914A6DC26665F3A007E926F /* GenericComponent.swift */,
@@ -457,6 +460,7 @@
 				C914A6DD26665F3A007E926F /* GenericComponent.swift in Sources */,
 				C914A6D826665B33007E926F /* FeedViewModel.swift in Sources */,
 				C9E1E7FE2664DC0100887857 /* FeedViewController.swift in Sources */,
+				C9B296FC26683AA000E9FED7 /* WebViewViewController.swift in Sources */,
 				C9E1E7FA2664DC0100887857 /* AppDelegate.swift in Sources */,
 				C9E1E84B2664E6FB00887857 /* MainViewController.swift in Sources */,
 				C9E1E8532664E81600887857 /* FavoritesViewController.swift in Sources */,

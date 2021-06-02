@@ -42,7 +42,6 @@ class FeedViewController: UIViewController {
     }
     func prepSearchBar() {
         navigationItem.searchController = searchController
-        searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         navigationItem.hidesSearchBarWhenScrolling = false
     }
@@ -78,7 +77,8 @@ class FeedViewController: UIViewController {
     }
     public func endLoadingView() {
         loadingView.removeFromSuperview()
-    }}
+    }
+}
 
 extension FeedViewController: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -98,14 +98,19 @@ extension FeedViewController: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
-    
-    
-}
-extension FeedViewController: UISearchResultsUpdating,UISearchBarDelegate {
-    func updateSearchResults(for searchController: UISearchController) {
-        guard let text = searchController.searchBar.text else { return }
-//        print(text)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detailVC = NewsDetailViewController()
+        detailVC.articleImageView.sd_setImage(with: URL(string: feedViewModel.articleList[indexPath.row].urlToImage ?? ""))
+        detailVC.articleAuthorNameTextLabel.text = " 📰 \(String(feedViewModel.articleList[indexPath.row].author ?? ""))"
+        detailVC.articleContentTextLabel.text = feedViewModel.articleList[indexPath.row].content
+        detailVC.articleTitleTextLabel.text = feedViewModel.articleList[indexPath.row].title
+        detailVC.articleDateTextLabel.text = feedViewModel.articleList[indexPath.row].publishedAt
+        navigationController?.pushViewController(detailVC, animated: true)
     }
+}
+
+extension FeedViewController: UISearchBarDelegate {
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchBar.text else { return }
         print(text)
