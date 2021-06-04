@@ -1,5 +1,6 @@
  
  import UIKit
+ import SDWebImage
   
 class NewsDetailViewController: UIViewController {
  
@@ -8,7 +9,6 @@ class NewsDetailViewController: UIViewController {
     var articleImageView : UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(systemName: "pencil")
         return imageView
     }()
     var articleTitleTextLabel : UILabel = {
@@ -16,28 +16,24 @@ class NewsDetailViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .boldSystemFont(ofSize: 24)
         label.font = UIFont(name:"TimesNewRomanPS-BoldMT", size: 24.0)
-        label.text = "Ataya Suikast"
         label.numberOfLines = 3
         return label
     }()
     var articleAuthorNameTextLabel : UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "📰 Uğur Mumcu"
         return label
     }()
     var articleDateTextLabel : UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "🗓 23.10.1998"
         return label
     }()
     public var articleContentTextLabel : UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 5
+        label.numberOfLines = 10
         label.textAlignment = .natural
-        label.text = "TEST"
         return label
     }()
     var urlButton : UIButton = {
@@ -53,11 +49,22 @@ class NewsDetailViewController: UIViewController {
         return button
     }()
 
+    var newsDetailUrl : String?
+
      override func viewDidLoad() {
          super.viewDidLoad()
+        setupNavigationBarButtons()
         view.backgroundColor = .white
         addSubviews()
         setupConstraints()
+     
+    }
+    private func setupNavigationBarButtons() {
+        let navBarFavoriteButton = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .plain, target: self, action: #selector(favoriteButtonClicked))
+        navBarFavoriteButton.tintColor = .black
+        let navBarShareButton = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(shareButtonClicked))
+        navBarShareButton.tintColor = .black
+        self.navigationItem.rightBarButtonItems  = [navBarFavoriteButton,navBarShareButton]
     }
 
     func addSubviews() {
@@ -84,8 +91,12 @@ class NewsDetailViewController: UIViewController {
 
             articleAuthorNameTextLabel.topAnchor.constraint(equalTo: articleTitleTextLabel.bottomAnchor, constant: 10),
             articleAuthorNameTextLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
+            articleAuthorNameTextLabel.widthAnchor.constraint(equalToConstant: 180),
+
+            
             articleDateTextLabel.topAnchor.constraint(equalTo: articleTitleTextLabel.bottomAnchor, constant: 10),
             articleDateTextLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+
 
             articleContentTextLabel.topAnchor.constraint(equalTo: articleAuthorNameTextLabel.bottomAnchor, constant: 10),
             articleContentTextLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
@@ -97,11 +108,19 @@ class NewsDetailViewController: UIViewController {
             urlButton.widthAnchor.constraint(equalToConstant: 150)
         ])
     }
+    
     @objc func didTappedLink() {
-        guard let url = URL(string: "https://www.google.com") else { return }
-        let vc = WebViewViewController(url:url , title: "GOOGLE")
+        guard let url = URL(string: newsDetailUrl ?? "") else { return }
+        let vc = WebViewViewController(url:url , title: "News Source")
         let navVC = UINavigationController(rootViewController: vc)
         present(navVC, animated: true, completion: nil)
-        
+    }
+    @objc func favoriteButtonClicked() {
+       print("Favorite Button Clicked")
+    }
+    @objc func shareButtonClicked() {
+        let activityVC = UIActivityViewController(activityItems: [newsDetailUrl ?? "Link is not valid."], applicationActivities: nil)
+        activityVC.popoverPresentationController?.sourceView = self.view
+        self.present(activityVC, animated: true, completion: nil)
     }
  }

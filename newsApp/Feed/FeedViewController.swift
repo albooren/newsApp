@@ -8,10 +8,15 @@
 import UIKit
 import SDWebImage
 
+protocol selectedNewsDelegate {
+    func didSelectedNews(title:String, imageURL:String, authorName: String, publishAt:String, content:String)
+}
+
 class FeedViewController: UIViewController {
     
     let searchController = UISearchController()
     private var feedViewModel = FeedViewModel()
+    var NewsTransferDelegate : selectedNewsDelegate!
     
     //MARK: -UI Objects -
     
@@ -22,17 +27,17 @@ class FeedViewController: UIViewController {
         return tableView
     }()
     public var loadingView = UIView()
+    public var searchKeyword : String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.dataSource = self
-        tableView.delegate = self
         prepNavigationController()
         prepSearchBar()
-        view.addSubview(tableView)
+        addSubViews()
         setupConstraints()
-        setupLoadingView()
-        getData()
+
+        tableView.dataSource = self
+        tableView.delegate = self
     }
     
     func prepNavigationController() {
@@ -45,7 +50,6 @@ class FeedViewController: UIViewController {
         searchController.searchBar.delegate = self
         navigationItem.hidesSearchBarWhenScrolling = false
     }
-    
     func setupConstraints() {
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -55,8 +59,11 @@ class FeedViewController: UIViewController {
             tableView.widthAnchor.constraint(equalTo: view.widthAnchor)
         ])
     }
+    func addSubViews() {
+        view.addSubview(tableView)
+    }
     func getData() {
-        feedViewModel.getArticle(onCompleted: { [weak self] in
+        feedViewModel.getArticle(searchKeyWord: searchKeyword ?? "besiktas", onCompleted: { [weak self] in
             guard let self = self else { return }
             self.tableView.reloadData()
             self.endLoadingView()
@@ -66,7 +73,7 @@ class FeedViewController: UIViewController {
             self.showError(alertTitle: "Hata!", alertSubtitle: "Veriler yüklenmedi", okButtonTitle: "Ok")
         })
     }
-    public func setupLoadingView(){
+    public func setupLoadingView() {
         loadingView = UIView(frame: view.bounds)
         loadingView.backgroundColor = UIColor.init(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
         let loadingIndicator = UIActivityIndicatorView(style: .large)
@@ -77,6 +84,15 @@ class FeedViewController: UIViewController {
     }
     public func endLoadingView() {
         loadingView.removeFromSuperview()
+    }
+    public func prepTime(time: String) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        let tempTime = formatter.date(from: time) ?? Date()
+        let lastFormat = DateFormatter()
+        lastFormat.dateFormat = "MM/dd/yyyy"
+        let lastTime = lastFormat.string(from: tempTime)
+        return lastTime
     }
 }
 
@@ -104,7 +120,8 @@ extension FeedViewController: UITableViewDelegate,UITableViewDataSource {
         detailVC.articleAuthorNameTextLabel.text = " 📰 \(String(feedViewModel.articleList[indexPath.row].author ?? ""))"
         detailVC.articleContentTextLabel.text = feedViewModel.articleList[indexPath.row].content
         detailVC.articleTitleTextLabel.text = feedViewModel.articleList[indexPath.row].title
-        detailVC.articleDateTextLabel.text = feedViewModel.articleList[indexPath.row].publishedAt
+        detailVC.articleDateTextLabel.text = " 🗓 \(prepTime(time: feedViewModel.articleList[indexPath.row].publishedAt ?? ""))"
+        detailVC.newsDetailUrl = feedViewModel.articleList[indexPath.row].url
         navigationController?.pushViewController(detailVC, animated: true)
     }
 }
@@ -113,7 +130,10 @@ extension FeedViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchBar.text else { return }
-        print(text)
+        searchKeyword = text
+        setupLoadingView()
+        feedViewModel.articleList.removeAll()
+        getData()
     }
     
 }
