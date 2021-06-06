@@ -18,7 +18,10 @@ class FavoritesViewModel {
         do {
             favedNews = try context.fetch(FavoriteNews.fetchRequest())
             let favoritesViewController = FavoritesViewController()
-            favoritesViewController.favoriteNewsTableView.reloadData()
+            DispatchQueue.main.async {
+                favoritesViewController.favoriteNewsTableView.reloadData()
+            }
+            
         } catch {
             print("ERROR")
         }
@@ -39,6 +42,7 @@ class FavoritesViewModel {
         favedNew.newsLinkURL = newsLinkURL
         do {
             try context.save()
+            getAllFavoritedNews()
         } catch  {
             print("News does not favorited!")
         }
@@ -47,8 +51,6 @@ class FavoritesViewModel {
         context.delete(new)
         do {
             try context.save()
-            let favoritesViewController = FavoritesViewController()
-            favoritesViewController.favoriteNewsTableView.reloadData()
         } catch  {
             print("News does not remove from favoritedList")
         }
