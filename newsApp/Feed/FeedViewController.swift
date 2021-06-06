@@ -8,15 +8,10 @@
 import UIKit
 import SDWebImage
 
-protocol selectedNewsDelegate {
-    func didSelectedNews(title:String, imageURL:String, authorName: String, publishAt:String, content:String)
-}
-
 class FeedViewController: UIViewController {
     
     let searchController = UISearchController()
     private var feedViewModel = FeedViewModel()
-    var NewsTransferDelegate : selectedNewsDelegate!
     
     //MARK: -UI Objects -
     
@@ -104,7 +99,7 @@ extension FeedViewController: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: NewsTableViewCell.identifier,for : indexPath) as? NewsTableViewCell{
             cell.newsLabel.text = feedViewModel.articleList[indexPath.row].title
-            cell.newsImageView.sd_setImage(with: URL(string: feedViewModel.articleList[indexPath.row].urlToImage ?? ""))
+            cell.newsImageView.sd_setImage(with: URL(string: feedViewModel.articleList[indexPath.row].urlToImage ?? GenericComponents.unknownImageUrlLink))
             cell.newsShortDetailLabel.text = feedViewModel.articleList[indexPath.row].description
             return cell
         }
@@ -116,18 +111,17 @@ extension FeedViewController: UITableViewDelegate,UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailVC = NewsDetailViewController()
-        detailVC.articleImageView.sd_setImage(with: URL(string: feedViewModel.articleList[indexPath.row].urlToImage ?? ""))
-        detailVC.articleAuthorNameTextLabel.text = " 📰 \(String(feedViewModel.articleList[indexPath.row].author ?? ""))"
-        detailVC.articleContentTextLabel.text = feedViewModel.articleList[indexPath.row].content
-        detailVC.articleTitleTextLabel.text = feedViewModel.articleList[indexPath.row].title
-        detailVC.articleDateTextLabel.text = " 🗓 \(prepTime(time: feedViewModel.articleList[indexPath.row].publishedAt ?? ""))"
-        detailVC.newsDetailUrl = feedViewModel.articleList[indexPath.row].url
+        detailVC.selectedNewsImageURL = feedViewModel.articleList[indexPath.row].urlToImage ?? GenericComponents.unknownImageUrlLink
+        detailVC.selectedNewsTitle = feedViewModel.articleList[indexPath.row].title
+        detailVC.selectedNewsAuthor = " 📰 \(String(feedViewModel.articleList[indexPath.row].author ?? "unspecified"))"
+        detailVC.selectedNewsDate = " 🗓 \(prepTime(time: feedViewModel.articleList[indexPath.row].publishedAt ?? ""))"
+        detailVC.selectedNewsContent = feedViewModel.articleList[indexPath.row].content
+        detailVC.selectednewsDetailUrl = feedViewModel.articleList[indexPath.row].url
         navigationController?.pushViewController(detailVC, animated: true)
     }
 }
 
 extension FeedViewController: UISearchBarDelegate {
-    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchBar.text else { return }
         searchKeyword = text

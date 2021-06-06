@@ -7,6 +7,10 @@
 
 import UIKit
 
+class GenericComponents {
+    static let unknownImageUrlLink = "https://nebosan.com.tr/wp-content/uploads/2018/06/no-image.jpg"
+}
+
 extension FeedViewController {
     
     func showError(alertTitle: String, alertSubtitle: String, okButtonTitle: String) {

@@ -6,12 +6,12 @@ class NewsDetailViewController: UIViewController {
  
  //MARK: - UI Objects -
     
-    var articleImageView : UIImageView = {
+    lazy var articleImageView : UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    var articleTitleTextLabel : UILabel = {
+    lazy var articleTitleTextLabel : UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .boldSystemFont(ofSize: 24)
@@ -19,24 +19,24 @@ class NewsDetailViewController: UIViewController {
         label.numberOfLines = 3
         return label
     }()
-    var articleAuthorNameTextLabel : UILabel = {
+    lazy var articleAuthorNameTextLabel : UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    var articleDateTextLabel : UILabel = {
+    lazy var articleDateTextLabel : UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    public var articleContentTextLabel : UILabel = {
+    lazy var articleContentTextLabel : UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 10
+        label.numberOfLines = 5
         label.textAlignment = .natural
         return label
     }()
-    var urlButton : UIButton = {
+    lazy var urlButton : UIButton = {
         let button = UIButton()
         button.isUserInteractionEnabled = true
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -48,19 +48,28 @@ class NewsDetailViewController: UIViewController {
         button.addTarget(self, action: #selector(didTappedLink), for: .touchUpInside)
         return button
     }()
-
-    var newsDetailUrl : String?
-
+    
+        var selectedNewsTitle : String?
+        var selectedNewsImageURL : String?
+        var selectedNewsAuthor : String?
+        var selectedNewsDate : String?
+        var selectedNewsContent: String?
+        var selectednewsDetailUrl : String?
+    
+        var favoritesVC = FavoritesViewController()
+        var favoritesViewModel = FavoritesViewModel()
+    
      override func viewDidLoad() {
-         super.viewDidLoad()
+         super.viewDidLoad()        
         setupNavigationBarButtons()
         view.backgroundColor = .white
         addSubviews()
         setupConstraints()
-     
+        setupContent()
     }
+    
     private func setupNavigationBarButtons() {
-        let navBarFavoriteButton = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .plain, target: self, action: #selector(favoriteButtonClicked))
+        let navBarFavoriteButton = UIBarButtonItem(image: UIImage(systemName: "heart.fill"), style: .plain, target: self, action: #selector(favoriteButtonClicked))
         navBarFavoriteButton.tintColor = .black
         let navBarShareButton = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(shareButtonClicked))
         navBarShareButton.tintColor = .black
@@ -109,18 +118,36 @@ class NewsDetailViewController: UIViewController {
         ])
     }
     
+    func setupContent() {
+        articleImageView.sd_setImage(with: URL(string: selectedNewsImageURL ?? GenericComponents.unknownImageUrlLink))
+        articleTitleTextLabel.text = selectedNewsTitle
+        articleAuthorNameTextLabel.text = selectedNewsAuthor
+        articleDateTextLabel.text = selectedNewsDate
+        articleContentTextLabel.text = selectedNewsContent
+    }
+    
     @objc func didTappedLink() {
-        guard let url = URL(string: newsDetailUrl ?? "") else { return }
+        guard let url = URL(string: selectednewsDetailUrl ?? "") else { return }
         let vc = WebViewViewController(url:url , title: "News Source")
         let navVC = UINavigationController(rootViewController: vc)
         present(navVC, animated: true, completion: nil)
     }
+    
     @objc func favoriteButtonClicked() {
-       print("Favorite Button Clicked")
+        favoritesViewModel.saveFavoritedNew(newsTitle: selectedNewsTitle ?? "",
+                                            newsImageURL: selectedNewsImageURL ?? GenericComponents.unknownImageUrlLink,
+                                            newsAuthor: selectedNewsAuthor ?? "",
+                                            newsPublishDate: selectedNewsDate ?? "",
+                                            newsContent: selectedNewsContent ?? "",
+                                            newsLinkURL: selectednewsDetailUrl ?? "")
+        favoritesVC.favoriteNewsTableView.reloadData()
+        navigationController?.pushViewController(favoritesVC, animated: true)
     }
+    
     @objc func shareButtonClicked() {
-        let activityVC = UIActivityViewController(activityItems: [newsDetailUrl ?? "Link is not valid."], applicationActivities: nil)
+        let activityVC = UIActivityViewController(activityItems: [selectednewsDetailUrl ?? "Link is not valid."], applicationActivities: nil)
         activityVC.popoverPresentationController?.sourceView = self.view
         self.present(activityVC, animated: true, completion: nil)
     }
  }
+ 
