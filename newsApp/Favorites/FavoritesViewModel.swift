@@ -47,6 +47,8 @@ class FavoritesViewModel {
         context.delete(new)
         do {
             try context.save()
+            let favoritesViewController = FavoritesViewController()
+            favoritesViewController.favoriteNewsTableView.reloadData()
         } catch  {
             print("News does not remove from favoritedList")
         }

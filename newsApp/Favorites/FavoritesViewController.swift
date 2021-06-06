@@ -30,6 +30,7 @@ class FavoritesViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         favoritesViewModel.getAllFavoritedNews()
+        favoriteNewsTableView.reloadData()
     }
     
     func setupConstraints() {
