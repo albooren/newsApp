@@ -5,6 +5,13 @@
 class NewsDetailViewController: UIViewController {
  
  //MARK: - UI Objects -
+    lazy var scrollView : UIScrollView = {
+       let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.contentSize = CGSize(width: view.frame.width, height: 2000)
+        return scrollView
+    }()
+    lazy var contentView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height + articleContentTextLabel.frame.height))
     
     lazy var articleImageView : UIImageView = {
         let imageView = UIImageView()
@@ -32,7 +39,7 @@ class NewsDetailViewController: UIViewController {
     lazy var articleContentTextLabel : UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 5
+        label.numberOfLines = 0
         label.textAlignment = .natural
         return label
     }()
@@ -77,43 +84,55 @@ class NewsDetailViewController: UIViewController {
     }
 
     func addSubviews() {
-        view.addSubview(articleImageView)
-        view.addSubview(articleTitleTextLabel)
-        view.addSubview(articleAuthorNameTextLabel)
-        view.addSubview(articleDateTextLabel)
-        view.addSubview(articleContentTextLabel)
-        view.addSubview(urlButton)
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        contentView.addSubview(articleImageView)
+        contentView.addSubview(articleTitleTextLabel)
+        contentView.addSubview(articleAuthorNameTextLabel)
+        contentView.addSubview(articleDateTextLabel)
+        contentView.addSubview(articleContentTextLabel)
+        contentView.addSubview(urlButton)s
      }
      
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            articleImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            articleImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            articleImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            articleImageView.widthAnchor.constraint(equalToConstant: view.frame.width-40),
-            articleImageView.heightAnchor.constraint(equalToConstant: ((view.frame.width-40)/4)*3),
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            scrollView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            
+            articleImageView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 10),
+            articleImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            articleImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            articleImageView.widthAnchor.constraint(equalToConstant: contentView.frame.width-40),
+            articleImageView.heightAnchor.constraint(equalToConstant: ((contentView.frame.width-40)/4)*3),
 
            articleTitleTextLabel.topAnchor.constraint(equalTo: articleImageView.bottomAnchor, constant: 20),
-            articleTitleTextLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            articleTitleTextLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            articleTitleTextLabel.widthAnchor.constraint(equalToConstant: view.frame.width - 40),
+            articleTitleTextLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            articleTitleTextLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            articleTitleTextLabel.widthAnchor.constraint(equalToConstant: contentView.frame.width - 40),
 
             articleAuthorNameTextLabel.topAnchor.constraint(equalTo: articleTitleTextLabel.bottomAnchor, constant: 10),
-            articleAuthorNameTextLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
+            articleAuthorNameTextLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 50),
             articleAuthorNameTextLabel.widthAnchor.constraint(equalToConstant: 180),
 
-            
+
             articleDateTextLabel.topAnchor.constraint(equalTo: articleTitleTextLabel.bottomAnchor, constant: 10),
-            articleDateTextLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+            articleDateTextLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -50),
 
 
             articleContentTextLabel.topAnchor.constraint(equalTo: articleAuthorNameTextLabel.bottomAnchor, constant: 10),
-            articleContentTextLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            articleContentTextLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            articleContentTextLabel.widthAnchor.constraint(equalToConstant: view.frame.width - 40),
+            articleContentTextLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            articleContentTextLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            articleContentTextLabel.widthAnchor.constraint(equalToConstant: contentView.frame.width - 40),
 
             urlButton.topAnchor.constraint(equalTo: articleContentTextLabel.bottomAnchor, constant: 10),
-            urlButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            urlButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             urlButton.widthAnchor.constraint(equalToConstant: 150)
         ])
     }
