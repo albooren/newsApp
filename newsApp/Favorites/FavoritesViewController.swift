@@ -48,6 +48,7 @@ class FavoritesViewController: UIViewController {
     
     func prepView() {
         title = "Favorites"
+        navigationController?.navigationBar.tintColor = .black
         view.backgroundColor = .white
 
     }
