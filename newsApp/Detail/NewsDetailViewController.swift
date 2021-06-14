@@ -91,7 +91,7 @@ class NewsDetailViewController: UIViewController {
         contentView.addSubview(articleAuthorNameTextLabel)
         contentView.addSubview(articleDateTextLabel)
         contentView.addSubview(articleContentTextLabel)
-        contentView.addSubview(urlButton)s
+        contentView.addSubview(urlButton)
      }
      
     func setupConstraints() {
